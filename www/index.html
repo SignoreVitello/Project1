@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Eventio</title>
+        <link rel="stylesheet" href="css/onsenui.css" />
+        <link rel="stylesheet" href="css/dark-onsen-css-components.css" />
+        <link rel="stylesheet" href="css/index.css" />
+    </head>
+
+    <ons-navigator id="navigator" page="page-login">
+        <ons-page id="page-login">
+            <div style="text-align: center; margin-top: 200px">
+                <h1 class="Eventio">Eventio</h1>
+
+                <p>
+                    <ons-input
+                        id="input-username"
+                        placeholder="Username"
+                        modifier="underbar"
+                    ></ons-input>
+                </p>
+
+                <p>
+                    <ons-input
+                        id="input-password"
+                        placeholder="Password"
+                        type="password"
+                        modifier="underbar"
+                    >
+                    </ons-input>
+                </p>
+
+                <p>
+                    <ons-button onclick="login()">Sign in</ons-button>
+                </p>
+                <p>
+                    <ons-button onclick="goToRegister()">Register</ons-button>
+                </p>
+            </div>
+        </ons-page>
+    </ons-navigator>
+
+    <!-- Register Page -->
+    <template id="page-register.html">
+        <ons-page id="page-register">
+            <ons-toolbar>
+                <div class="center">Register</div>
+                <div class="left">
+                    <ons-back-button></ons-back-button>
+                </div>
+            </ons-toolbar>
+            <div style="text-align: center; margin-top: 200px">
+                <p>
+                    <ons-input
+                        id="create-username"
+                        placeholder="Choose your username!"
+                        modifier="underbar"
+                    >
+                    </ons-input>
+                </p>
+                <p>
+                    <ons-input
+                        id="create-password"
+                        placeholder="Choose your password!"
+                        modifier="underbar"
+                    >
+                    </ons-input>
+                </p>
+            </div>
+        </ons-page>
+    </template>
+
+    <ons-splitter>
+        <ons-splitter-side
+            id="menu"
+            side="right"
+            width="220px"
+            collapse
+            swipeable
+        >
+            <ons-page>
+                <ons-list>
+                    <ons-list-item
+                        onclick="fn.load('create-event.html')"
+                        tappable
+                    >
+                        Add new event
+                    </ons-list-item>
+                    <ons-list-item onclick="fn.load('settings.html')" tappable
+                        >Profile
+                    </ons-list-item>
+                    <ons-list-item
+                        onclick="fn.load('friendlist.html')"
+                        tappable
+                    >
+                        Friendlist
+                    </ons-list-item>
+                </ons-list>
+            </ons-page>
+        </ons-splitter-side>
+        <ons-splitter-content
+            id="content"
+            page="home.html"
+        ></ons-splitter-content>
+    </ons-splitter>
+
+    <!-- Main Page -->
+
+    <template id="home.html">
+        <ons-page id="home">
+            <ons-toolbar>
+                <div class="right">
+                    <ons-toolbar-button onclick="fn.open()">
+                        <ons-icon icon="md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+                <div class="center">Active Events</div>
+            </ons-toolbar>
+            <div style="text-align: center; margin-top: 200px"></div>
+        </ons-page>
+    </template>
+
+    <template id="friendlist.html">
+        <ons-page id="friendlist">
+            <ons-toolbar>
+                <div class="right">
+                    <ons-toolbar-button onclick="fn.open()">
+                        <ons-icon icon="md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+                <div class="center">Active Events</div>
+            </ons-toolbar>
+            <div style="text-align: center; margin-top: 200px"></div>
+        </ons-page>
+    </template>
+
+    <script src="js/onsenui.js"></script>
+    <script src="js/index.js"></script>
+</html>
