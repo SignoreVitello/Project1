@@ -10,7 +10,13 @@
         <link rel="stylesheet" href="css/index.css" />
     </head>
 
-    <ons-navigator id="navigator" page="page-login">
+    <ons-navigator
+        id="navigator"
+        page="page-login.html"
+        animation="fade"
+    ></ons-navigator>
+
+    <template id="page-login.html">
         <ons-page id="page-login">
             <div style="text-align: center; margin-top: 200px">
                 <h1 class="Eventio">Eventio</h1>
@@ -34,14 +40,14 @@
                 </p>
 
                 <p>
-                    <ons-button onclick="login()">Sign in</ons-button>
+                    <ons-button onclick="loginUser(event)">Sign in</ons-button>
                 </p>
                 <p>
                     <ons-button onclick="goToRegister()">Register</ons-button>
                 </p>
             </div>
         </ons-page>
-    </ons-navigator>
+    </template>
 
     <!-- Register Page -->
     <template id="page-register.html">
@@ -69,45 +75,68 @@
                     >
                     </ons-input>
                 </p>
+                <p>
+                    <ons-button
+                        onclick="registerUser(event)"
+                        id="register-submit"
+                    >
+                        Submit
+                    </ons-button>
+                </p>
             </div>
         </ons-page>
     </template>
 
-    <ons-splitter>
-        <ons-splitter-side
-            id="menu"
-            side="right"
-            width="220px"
-            collapse
-            swipeable
-        >
-            <ons-page>
-                <ons-list>
-                    <ons-list-item
-                        onclick="fn.load('create-event.html')"
-                        tappable
-                    >
-                        Add new event
-                    </ons-list-item>
-                    <ons-list-item onclick="fn.load('settings.html')" tappable
-                        >Profile
-                    </ons-list-item>
-                    <ons-list-item
-                        onclick="fn.load('friendlist.html')"
-                        tappable
-                    >
-                        Friendlist
-                    </ons-list-item>
-                </ons-list>
-            </ons-page>
-        </ons-splitter-side>
-        <ons-splitter-content
-            id="content"
-            page="home.html"
-        ></ons-splitter-content>
-    </ons-splitter>
+    <template id="splitter.html">
+        <ons-page>
+            <ons-splitter>
+                <ons-splitter-side
+                    id="menu"
+                    side="right"
+                    width="220px"
+                    collapse
+                    swipeable
+                >
+                    <ons-page>
+                        <ons-list>
+                            <ons-list-item
+                                onclick="fn.load('home.html')"
+                                tappable
+                            >
+                                Active Events
+                            </ons-list-item>
+                            <ons-list-item
+                                onclick="fn.load('create-event.html')"
+                                tappable
+                            >
+                                Add new event
+                            </ons-list-item>
+                            <ons-list-item
+                                onclick="fn.load('profile.html')"
+                                tappable
+                                >Profile
+                            </ons-list-item>
+                            <ons-list-item
+                                onclick="fn.load('friendlist.html')"
+                                tappable
+                            >
+                                Friendlist
+                            </ons-list-item>
+                            <ons-list-item onclick="fn.logOut()" tappable>
+                                Log out
+                            </ons-list-item>
+                        </ons-list>
+                    </ons-page>
+                </ons-splitter-side>
+                <ons-splitter-content
+                    id="content"
+                    page="home.html"
+                ></ons-splitter-content>
+            </ons-splitter>
+        </ons-page>
+    </template>
 
-    <!-- Main Page -->
+    <!-- Main/Event Page -->
 
     <template id="home.html">
         <ons-page id="home">
@@ -119,9 +148,79 @@
                 </div>
                 <div class="center">Active Events</div>
             </ons-toolbar>
-            <div style="text-align: center; margin-top: 200px"></div>
+            <div id="main-page-user">
+                <p id="username"></p>
+                <img src="#" alt="Pic" id="profile-pic" />
+            </div>
+            <div style="text-align: center">
+                <ons-list id="active-event-list">
+                    <ons-list-header>Active Events</ons-list-header>
+                    <ons-list-item
+                        class="active-event"
+                        modifier="chevron"
+                        ripple
+                        >Event1</ons-list-item
+                    >
+                    <ons-list-item
+                        class="active-event"
+                        modifier="chevron"
+                        ripple
+                        >Event2</ons-list-item
+                    >
+                    <ons-list-item
+                        class="active-event"
+                        modifier="chevron"
+                        ripple
+                        >Event3</ons-list-item
+                    >
+                    <ons-list-item
+                        class="active-event"
+                        modifier="chevron"
+                        ripple
+                        >Event4</ons-list-item
+                    >
+                </ons-list>
+            </div>
         </ons-page>
     </template>
+
+    <!-- Add New Event Page -->
+
+    <template id="create-event.html">
+        <ons-page id="create-event">
+            <ons-toolbar>
+                <div class="right">
+                    <ons-toolbar-button onclick="fn.open()">
+                        <ons-icon icon="md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+                <div class="center">Add New Event</div>
+            </ons-toolbar>
+            <div style="text-align: center; margin-top: 200px">
+                <div style="margin-bottom: 200px">
+                    <ons-input
+                        placeholder="Give your event a name!"
+                        modifier="underbar"
+                    ></ons-input>
+                    <ons-list>
+                        <ons-list-header>Invited friends</ons-list-header>
+                    </ons-list>
+                </div>
+                <div style="margin-bottom: 200px">
+                    <ons-input
+                        placeholder="Products already available?"
+                        modifier="underbar"
+                        float
+                    ></ons-input>
+                    <ons-list>
+                        <ons-list-header>Brought products</ons-list-header>
+                    </ons-list>
+                </div>
+            </div>
+        </ons-page>
+    </template>
+
+    <!-- Friendlist Page -->
 
     <template id="friendlist.html">
         <ons-page id="friendlist">
@@ -131,9 +230,41 @@
                         <ons-icon icon="md-menu"></ons-icon>
                     </ons-toolbar-button>
                 </div>
-                <div class="center">Active Events</div>
+                <div class="center">Friendlist</div>
             </ons-toolbar>
             <div style="text-align: center; margin-top: 200px"></div>
+        </ons-page>
+    </template>
+
+    <!-- Profile Page -->
+
+    <template id="profile.html">
+        <ons-page id="profile">
+            <ons-toolbar>
+                <div class="right">
+                    <ons-toolbar-button onclick="fn.open()">
+                        <ons-icon icon="md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+                <div class="center">Profile</div>
+            </ons-toolbar>
+            <div style="text-align: center; margin-top: 200px">
+                <p>
+                    <ons-button class="profile-buttons"
+                        >Change profile picture</ons-button
+                    >
+                </p>
+                <p>
+                    <ons-button class="profile-buttons"
+                        >Change username</ons-button
+                    >
+                </p>
+                <p>
+                    <ons-button class="profile-buttons"
+                        >Change password</ons-button
+                    >
+                </p>
+            </div>
         </ons-page>
     </template>
 
